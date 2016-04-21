@@ -21,3 +21,5 @@ Route::get('checkemail/{email}', [
 ]);
 
 Route::resource('user', 'UserController');
+
+Route::resource('userdeletereq', 'UserDeleteRequestController');
