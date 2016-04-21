@@ -15,4 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('checkemail/{email}', [
+    'as' => 'user.checkemail',
+    'uses' => 'UserController@checkEmail'
+]);
+
 Route::resource('user', 'UserController');

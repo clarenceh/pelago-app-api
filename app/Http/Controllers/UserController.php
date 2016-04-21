@@ -103,4 +103,16 @@ class UserController extends Controller
         // Delete user by id
         User::destroy($id);
     }
+
+    /**
+     * Check existence of user email
+     *
+     * @param $email
+     * @return result
+     */
+    public function checkEmail($email) {
+        Log::debug("Checking Email: " . $email);
+
+        $user = User::where('email', '=', $email)->firstOrFail();
+    }
 }
