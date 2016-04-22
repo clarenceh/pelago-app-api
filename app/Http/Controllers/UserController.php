@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use Log;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -42,8 +42,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: perform field validation
-        
+
+        // Perform field validation
+        Log::debug('Perform field validation');
+        $this->validate($request, [
+            'email' => 'required|unique:users|min:3|max:100',
+            'name' => 'required|min:2|max:100',
+            'tel' => 'max:20',
+            'password' => 'required|min:6|max:20',
+            'nationality' => 'max:40'
+        ]);
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;

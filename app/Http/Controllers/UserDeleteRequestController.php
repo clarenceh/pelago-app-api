@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\UserDeleteRequest;
 use Log;
 
-class UserDeleteRequestController extends Controller
+class UserDeleteRequestController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,8 @@ class UserDeleteRequestController extends Controller
      */
     public function index()
     {
-        //
+        // List all deletion requests
+        return UserDeleteRequest::all();
     }
 
     /**
@@ -39,6 +40,13 @@ class UserDeleteRequestController extends Controller
      */
     public function store(Request $request)
     {
+        // Perform validation
+        Log::debug('Perform field validation');
+        $this->validate($request, [
+            'email' => 'required|exists:users',
+            'comment' => 'max:255'
+        ]);
+
         $userDeleteRequest = new UserDeleteRequest;
         $userDeleteRequest->email = $request->email;
         $userDeleteRequest->comment = $request->comment;
